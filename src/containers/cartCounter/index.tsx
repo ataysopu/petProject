@@ -7,14 +7,15 @@ import { GoToCartBtn } from './styled';
 
 import { ReactComponent as EmptyCartIcon } from 'assets/icons/cart.svg';
 import { ReactComponent as FullCartIcon } from 'assets/icons/cart_color.svg';
+import { useSelector } from 'react-redux';
+import * as wishSliceSelectors from 'store/selectors/wishlistSelectors';
 
 
 export const CartCounterBtn: React.FC = () => {
-  const DATA: any = []; //TODO get data from react-query
-  const isGuest = 'GUEST'; //TODO get data from react-query
-
+  const DATA = useSelector(wishSliceSelectors.products);
+  const isGuest = 'GUEST';
   const navigate = useNavigate();
-  const length = React.useMemo(() => DATA.length, [DATA]);
+  const length = DATA.length;
 
   const historyPath = isGuest === UserRole.GUEST ? URLS.Cart : { pathname: URLS.Profile, state: { data: Tab.CART } };
   return (

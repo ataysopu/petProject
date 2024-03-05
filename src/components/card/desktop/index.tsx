@@ -21,6 +21,12 @@ import { ReactComponent as UnFaveIcon } from 'assets/icons/unfave.svg';
 import { ReactComponent as FaveIcon } from 'assets/icons/fave.svg';
 import { formatNumber } from '../../../core/helpers';
 import { IconCartLight } from '../../icons/cartLight';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorites, deleteFromFavorites } from '../../../store/reducers/favoriteSlice';
+import * as favoriteSliceSelectors from 'store/selectors/favoriteSelectors';
+import * as wishlistSliceSelectors from 'store/selectors/wishlistSelectors';
+import { addWishlist, deleteFromWishlist } from '../../../store/reducers/wishlistSlice';
+
 
 interface IDesktopCard {
   data: CartItem;
@@ -29,6 +35,28 @@ interface IDesktopCard {
 
 export const DesktopCard: React.FC<IDesktopCard> = ({ data, row }) => {
   const [hover, setHover] = React.useState<boolean>(false);
+  const goods = useSelector(favoriteSliceSelectors.goods);
+  const products = useSelector(wishlistSliceSelectors.products);
+  const dispatch = useDispatch();
+  const isExists = goods.find(g => g.id === data.id)?.id;
+  const isWishlist = products.find(p => p.id === data.id)?.id;
+
+
+  const handleClickFaveBtn = () => {
+    if (isExists) {
+      dispatch(deleteFromFavorites(data));
+    } else {
+      dispatch(addFavorites(data));
+    }
+  };
+
+  const handleClickWishBtn = () => {
+    if (isWishlist) {
+      dispatch(deleteFromWishlist(data));
+    } else {
+      dispatch(addWishlist(data));
+    }
+  };
 
   return (
     <Card
@@ -40,7 +68,8 @@ export const DesktopCard: React.FC<IDesktopCard> = ({ data, row }) => {
     >
       <Favorites row={row}>
         {/* <CompareIcon /> */}
-        <FaveBtn onClick={() => console.log('click')}>{data.fave ? <FaveIcon /> : <UnFaveIcon />}</FaveBtn>
+        <FaveBtn onClick={handleClickFaveBtn}>{isExists ? <FaveIcon /> :
+          <UnFaveIcon />}</FaveBtn>
       </Favorites>
       <ToastsContainer>
         {data.chips.map(({ type, label }: any) => (
@@ -78,7 +107,7 @@ export const DesktopCard: React.FC<IDesktopCard> = ({ data, row }) => {
               {formatNumber(data?.price.withDiscount)} <Symbol symbol="c" />
             </NewCost>
           </Cost>
-          <AddToCart primary center onClick={() => console.log('click')}>
+          <AddToCart primary center onClick={handleClickWishBtn}>
             <IconCartLight /> В корзину
           </AddToCart>
         </Price>

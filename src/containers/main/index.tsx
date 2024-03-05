@@ -1,6 +1,6 @@
+import React from 'react';
 import { useWindowSize } from '../../core/hooks/useWindowSize';
 import { Content, GoodsSection, SliderContainer, SliderSection } from './styled';
-import React from 'react';
 
 import slide from 'assets/icons/slide.png';
 import { SliderMain, SliderPartners } from '../../components/sliders';

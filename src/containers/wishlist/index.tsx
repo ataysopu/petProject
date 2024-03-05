@@ -3,6 +3,8 @@ import { DATA } from '../mocks/catalogItems';
 import { Select } from '../../components/select';
 import { Grid } from '../../components/grid';
 import { Card } from '../../components/card';
+import { useSelector } from 'react-redux';
+import * as favoriteSliceSelectors from 'store/selectors/favoriteSelectors';
 
 import {
   CompilationGoodsContainer,
@@ -21,7 +23,7 @@ export const OPTIONS = [
 
 export const Wishlist: React.FC<any> = () => {
   const allGoods = DATA;
-  const favedGoods = DATA.filter((item) => item.fave);
+  const favedGoods = useSelector(favoriteSliceSelectors.goods);
 
   const data = [...favedGoods];
   return (

@@ -10,7 +10,7 @@ import { MegaMenu } from '../megaMenu';
 import { Geo } from '../geolocation';
 
 import {
-  ButtonsContainer, CartHeaderBtn,
+  ButtonsContainer,
   CatalogButton,
   CatalogButtonTypography,
   ContactUs,
@@ -102,7 +102,7 @@ export const AppHeader = React.memo(() => {
             <MenuIcon onClick={() => setOpenDrower(!openDrower)} />
             <AppLogo />
             <HeaderBtnsContainer>
-              <FaveIcon />
+              <CartCounterBtn />
             </HeaderBtnsContainer>
           </MobileMenuContainer>
           <SearchContainer hidden={hiddenSearch()}>

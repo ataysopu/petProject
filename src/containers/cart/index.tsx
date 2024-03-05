@@ -1,39 +1,27 @@
+import React from 'react';
 import { useWindowSize } from '../../core/hooks/useWindowSize';
 import { useDeviceDetected } from '../../core/hooks/useDeviceDetected';
-import { CartItem } from '../../core/types/cart';
-import React from 'react';
-import { BREAKEPOINTS } from '../../core/config/breakpoints';
-import { ContentContainer, DesktopCardStyled, List, STab, STabList, STabPanel, STabs, Title } from './styled';
-import { MobileCard } from '../../components/card/mobile';
-import { IProductCard } from '../order/chekout/types';
+import { ContentContainer, List, STab, STabList, STabPanel, STabs, Title } from './styled';
 import { Empty } from './empty';
 import { UserRole } from '../../core/types/user';
 import { TotalCard } from './totalCard';
 import { IdentTotalCart } from './identTotalCard';
+import { Card } from '../../components/card';
+import { Grid } from '../../components/grid';
+import { useSelector } from 'react-redux';
+import * as wishlistSliceSelectors from 'store/selectors/wishlistSelectors';
+
 
 interface ICartProps {
   showRecommendations?: boolean;
 }
 
 export const Cart: React.FC<ICartProps> = ({ showRecommendations = true }) => {
-  const { width } = useWindowSize();
 
   const userRole = 'GUEST';
-  const dataCart: any = [];
+  const dataCart = useSelector(wishlistSliceSelectors.products);
 
   const isMobile = useDeviceDetected();
-  const Card = ({ i }: { i: CartItem }) => {
-    return (
-      <React.Fragment>
-        {width >= BREAKEPOINTS.xl ? (
-          <DesktopCardStyled key={i.vendor} data={i} />
-        ) : (
-          <MobileCard key={i.vendor} data={i} />
-        )}
-      </React.Fragment>
-    );
-  };
-
   return (
     <React.Fragment>
       <Title>Ваши товары</Title>
@@ -44,14 +32,16 @@ export const Cart: React.FC<ICartProps> = ({ showRecommendations = true }) => {
         <STabPanel>
           <ContentContainer>
             <List>
-              {!!dataCart?.items?.length ? (
-                dataCart?.items?.map((i: IProductCard) => <Card key={i.id} i={i} />)
+              {!!dataCart.length ? (
+                <Grid>
+                  {dataCart.map((item) => <Card key={item.id} data={item} />)}
+                </Grid>
               ) : (
                 <Empty showPosts={showRecommendations} />
               )}
             </List>
-            {!!dataCart?.items?.length && (!isMobile || userRole === UserRole.GUEST) && <TotalCard />}
-            {!!dataCart?.items?.length && isMobile && userRole !== UserRole.GUEST && (
+            {!!dataCart?.length && (!isMobile || userRole === UserRole.GUEST) && <TotalCard />}
+            {!!dataCart?.length && isMobile && userRole !== UserRole.GUEST && (
               <IdentTotalCart productCount={4} productAmount={34000} discount={4000} amount={30000} />
             )}
           </ContentContainer>

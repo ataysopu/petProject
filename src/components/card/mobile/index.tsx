@@ -15,12 +15,27 @@ import {
 import React from 'react';
 import { formatNumber } from '../../../core/helpers';
 import { Symbol } from '../../letter';
+import { useSelector, useDispatch } from 'react-redux';
+import * as cartSliceSelectors from 'store/selectors/wishlistSelectors';
+import { addWishlist, deleteFromWishlist } from '../../../store/reducers/wishlistSlice';
 
 interface IMobileCard {
   data: CartItem;
 }
 
 export const MobileCard: React.FC<IMobileCard> = ({ data }) => {
+  const products = useSelector(cartSliceSelectors.products);
+  const dispatch = useDispatch();
+  const isExists = products.find(p => p.id === data.id)?.id;
+
+  const handleClickCartBtn = () => {
+    if (isExists) {
+      dispatch(deleteFromWishlist(data));
+    } else {
+      dispatch(addWishlist(data));
+    }
+  };
+
   return (
     <Card>
       <Image src={data.images[0]} />
@@ -51,12 +66,10 @@ export const MobileCard: React.FC<IMobileCard> = ({ data }) => {
             {formatNumber(data?.price.withDiscount)} <Symbol symbol="c" />
           </NewCost>
         </Cost>
-        <AddToCart primary center onClick={() => console.log('ckick')}>
+        <AddToCart primary center onClick={handleClickCartBtn}>
           В Корзину
         </AddToCart>
       </ProductInfo>
     </Card>
   );
 };
-
-//TODO add handler from react-query
