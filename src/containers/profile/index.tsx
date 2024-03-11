@@ -1,6 +1,5 @@
 import React from 'react';
 import { Tab } from './controll';
-import { useLocation } from 'react-router-dom';
 import { useDeviceDetected } from '../../core/hooks/useDeviceDetected';
 import { Column, Main, ProfileWrapper, Row } from './styled';
 import { Modal } from '../../components';
@@ -23,24 +22,22 @@ import { Orders } from './order';
 import { Wishlist } from './wishlist';
 import { useSelector } from 'react-redux';
 import { CartPage } from '../../pages/cart';
+import * as userSelector from '../../store/selectors/userSelectors';
 
 interface LocationStateProps {
   data: undefined | Tab;
 }
 
 export const Profile: React.FC<any> = () => {
-  const [activeTab, setActiveTab] = React.useState<Tab>(Tab.PERSONAL);
   const [openIdentifiedModal, setOpenIdentifiedModal] = React.useState<boolean>(false);
   const data = user_data; // TODO get data from react-query
-  const history = useLocation();
-  const { data: tab } = (history.state as LocationStateProps) || {};
   const isMobile = useDeviceDetected();
   // @ts-ignore
   const { tabActive } = useSelector(state => state.app);
 
-  React.useEffect(() => {
-    tab && setActiveTab(tab);
-  }, [history.state]);
+  // подклчи везде где mockuser
+  const user = useSelector(userSelector.user);
+  console.log(user.data);
 
   const Component = React.useCallback(() => {
     switch (tabActive) {
@@ -64,13 +61,11 @@ export const Profile: React.FC<any> = () => {
       {!isMobile ? (
         <AccountLeftMenu
           data={data}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
           isOpenModal={openIdentifiedModal}
           setOpenModal={setOpenIdentifiedModal}
         />
       ) : (
-        activeTab === Tab.PERSONAL && (
+        tabActive === Tab.PERSONAL && (
           <UserInfoCard
             data={data}
             svgSize={102}

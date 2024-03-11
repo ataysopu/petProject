@@ -3,17 +3,22 @@ import { Box, EmptyContainer, GoToMain, ListTitle, ProductList } from './styled'
 import React from 'react';
 import { URLS } from '../../../routes/urls';
 import { Grid } from '../../../components/grid';
-import { DATA } from '../../mocks/catalogItems';
 import { Card } from '../../../components/card';
 
 import empty from 'assets/icons/cart/cartEmpty.svg';
+import { fetchBestSales } from '../../../api/getBestSales';
 
 interface IEmptyProps {
   showPosts: boolean;
 }
 
 export const Empty: React.FC<IEmptyProps> = ({ showPosts }) => {
+  const [bestSales, setBestSales] = React.useState<any[]>([]);
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    fetchBestSales().then(res => setBestSales(res.data));
+  }, []);
 
   return (
     <EmptyContainer>
@@ -27,7 +32,7 @@ export const Empty: React.FC<IEmptyProps> = ({ showPosts }) => {
         <ProductList>
           <ListTitle>Товары которые могут вас заинтересовать</ListTitle>
           <Grid>
-            {DATA.slice(0, 4).map((item) => (
+            {bestSales.slice(0, 4).map((item) => (
               <Card key={item.id} data={item} />
             ))}
           </Grid>

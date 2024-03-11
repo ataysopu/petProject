@@ -11,15 +11,11 @@ interface IAccountMenuProps {
   data: TUser;
   isOpenModal: boolean;
   setOpenModal: (arg: boolean) => void;
-  activeTab: Tab | undefined;
-  setActiveTab: (arg: Tab) => void;
 }
 
 export const AccountLeftMenu: React.FC<IAccountMenuProps> = (
   {
     data,
-    activeTab,
-    setActiveTab,
     isOpenModal,
     setOpenModal
   }) => {
@@ -40,7 +36,7 @@ export const AccountLeftMenu: React.FC<IAccountMenuProps> = (
           setOpenModal={setOpenModal}
         />
       </AccountWrapper>
-      <Controll isCollapse={collapse} activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Controll isCollapse={collapse} />
     </CollapseContainer>
   );
 };

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const WishlistWrapper = styled.div`
-    margin-top: 125px;
     display: flex;
     flex-direction: column;
 `;

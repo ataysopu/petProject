@@ -14,7 +14,6 @@ export const Container = styled.div`
 export const Content = styled.main`
     display: flex;
     flex-direction: column;
-    padding-top: 136px;
 
     ${mediaQueries('lg')`
     flex-direction: column;

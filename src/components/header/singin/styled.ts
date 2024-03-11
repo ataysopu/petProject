@@ -35,7 +35,6 @@ export const SigninBtn = styled(Button)`
     line-height: 20px;
     letter-spacing: 0.46px;
     color: var(--primary-main);
-    border: solid 1px var(--secondary-main);
     padding: 17px 20px;
     border-radius: 16px;
 

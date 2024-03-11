@@ -36,13 +36,10 @@ export const HeaderTop = styled.div<ISearchContainerProps>`
     animation-fill-mode: forwards;
 
     ${({ hidden }) => hidden && `${FadeIn}`}
-}
 
-${mediaQueries('lg')`
-    display: none;
-  `}
-
-;
+    ${mediaQueries('lg')`
+      display: none;
+    `};
 `;
 
 export const HeaderBottom = styled.div`
@@ -64,6 +61,7 @@ export const ButtonsContainer = styled.div`
 
     ${mediaQueries('lg')`
     flex-direction: row-reverse;
+    
   `};
 
     & .dropdownList {
@@ -211,8 +209,8 @@ export const SearchContainer = styled.div<ISearchContainerProps>`
     ${({ hidden }) =>
             hidden &&
             `
-    ${FadeIn}
-  `}
+        ${FadeIn}
+    `}
 }
 
 ${mediaQueries('lg')`
@@ -222,8 +220,6 @@ ${mediaQueries('lg')`
     position: relative;
     padding: 0 0 12px 0;
   `}
-
-;
 `;
 
 export const DrowerLangModal = styled(LangSwitcherModal)``;

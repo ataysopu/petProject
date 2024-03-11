@@ -15,29 +15,49 @@ import {
   Title,
   WishlistWrapper
 } from './styled';
+import { fetchBestSales } from '../../api/getBestSales';
 
 export const OPTIONS = [
-  { value: 'new', label: 'По новизне' },
-  { value: 'popular', label: 'По популярности' }
+  { value: 'isNew', label: 'новый' },
+  { value: 'isPopular', label: 'популярные' }
 ];
 
 export const Wishlist: React.FC<any> = () => {
-  const allGoods = DATA;
   const favedGoods = useSelector(favoriteSliceSelectors.goods);
 
-  const data = [...favedGoods];
+  const [bestSales, setBestSales] = React.useState<any[]>([]);
+  const [goods, setGoods] = React.useState<any[]>(favedGoods);
+
+
+  React.useEffect(() => {
+    fetchBestSales().then(res => setBestSales(res.data));
+  }, []);
+
+  React.useEffect(() => {
+    if (favedGoods) {
+      setGoods(favedGoods);
+    }
+  }, [favedGoods]);
+
+  const sortByType = (flag: string) => {
+    const data = goods.filter((a) => a[flag]);
+
+    // console.log('data: ', [...data, ...goods]);
+    // setGoods(items => ({ ...items, ...data }));
+  };
+
   return (
     <WishlistWrapper>
       <Title>Избранное</Title>
       <SortContainer>
-        <GoodsCount>Показано {data.length} товаров</GoodsCount>
+        <GoodsCount>Показано {favedGoods.length} товаров</GoodsCount>
         <FilterBy>
-          <Select options={OPTIONS} onChange={() => console.log('work')} placeholder="Сортировать" />
+          <Select options={OPTIONS} onChange={(item: any) => sortByType(item)} placeholder="Сортировать" />
         </FilterBy>
       </SortContainer>
       <GoodsContainer>
         <Grid>
-          {data.map((item) => (
+          {goods.map((item) => (
             <Card key={item.id} data={item} />
           ))}
         </Grid>
@@ -45,7 +65,7 @@ export const Wishlist: React.FC<any> = () => {
       <CompilationGoodsContainer>
         <SubTitle>Товары которые могут вас заинтересовать</SubTitle>
         <Grid>
-          {allGoods.slice(0, 4).map((item) => (
+          {bestSales.slice(0, 4).map((item) => (
             <Card key={item.id} data={item} />
           ))}
         </Grid>

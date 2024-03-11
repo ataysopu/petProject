@@ -3,9 +3,11 @@ import {
   AddToCart,
   Card,
   Cost,
-  CurrentCost, Image,
+  CurrentCost,
+  Image,
   InstalmentPay,
-  Name, NewCost,
+  Name,
+  NewCost,
   ProductInfo,
   Toast,
   ToastsContainer,
@@ -15,7 +17,7 @@ import {
 import React from 'react';
 import { formatNumber } from '../../../core/helpers';
 import { Symbol } from '../../letter';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as cartSliceSelectors from 'store/selectors/wishlistSelectors';
 import { addWishlist, deleteFromWishlist } from '../../../store/reducers/wishlistSlice';
 
@@ -24,9 +26,11 @@ interface IMobileCard {
 }
 
 export const MobileCard: React.FC<IMobileCard> = ({ data }) => {
+
   const products = useSelector(cartSliceSelectors.products);
   const dispatch = useDispatch();
   const isExists = products.find(p => p.id === data.id)?.id;
+
 
   const handleClickCartBtn = () => {
     if (isExists) {
@@ -35,6 +39,7 @@ export const MobileCard: React.FC<IMobileCard> = ({ data }) => {
       dispatch(addWishlist(data));
     }
   };
+
 
   return (
     <Card>

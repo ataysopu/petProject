@@ -10,8 +10,6 @@ import { changeActiveTab } from '../../../store/reducers/appSlice';
 
 
 interface IControllProps {
-  activeTab: Tab | undefined;
-  setActiveTab: (arg: Tab) => void;
   isCollapse?: boolean;
 }
 
@@ -57,7 +55,7 @@ const ITEMS: Items[] = [
   }
 ];
 
-export const Controll: React.FC<IControllProps> = ({ activeTab, setActiveTab, isCollapse }) => {
+export const Controll: React.FC<IControllProps> = ({ isCollapse }) => {
   // @ts-ignore
   const dispatch = useDispatch();
   // @ts-ignore

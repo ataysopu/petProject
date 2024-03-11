@@ -3,17 +3,15 @@ import { ISelectProps, Option } from './types';
 import { useOutsideClick } from '../../core/hooks/useOutsideClick';
 import {
   DropdownContainer,
+  DropdownList,
+  DropdownListItem,
   DropdownTitleContainer,
   DropdownWrapper,
+  IconContainer,
   IconValueContainer,
   Label,
-  StyledInput,
-  IconContainer,
-  DropdownList,
-  DropdownListItem
+  StyledInput
 } from './styled';
-import { toast } from 'react-toastify';
-import onChange = toast.onChange;
 import { IconVerticalChevron } from '../icons/chevron';
 
 export const Select: React.FC<ISelectProps> = React.memo(
@@ -30,27 +28,28 @@ export const Select: React.FC<ISelectProps> = React.memo(
      showSelectedValueIcon = false,
      showSelectedValue = true,
      defaultValue,
-     CustomOptionComponent = undefined
+     CustomOptionComponent = undefined,
+     onChange
    }) => {
     const [open, setOpen] = React.useState<boolean>(false);
     const [selectedValue, setSelectedValue] = React.useState<any>({});
 
     const ref = React.useRef<HTMLDivElement>(null);
 
-    React.useEffect(() => {
-      if (!selected) return;
-      options.map((v) => {
-        if (v.value === selected) {
-          onChange(v.value);
-          setSelectedValue(v);
-        }
-      });
-    }, [selected]);
+    // React.useEffect(() => {
+    //   if (!selected) return;
+    //   options.map((v) => {
+    //     if (v.value === selected) {
+    //       onChange(v.value);
+    //       setSelectedValue(v);
+    //     }
+    //   });
+    // }, [selected]);
 
     const handleChange = (data: Option) => {
       setSelectedValue(data);
-      onChange(() => data.value);
       setOpen(!open);
+      onChange(data.value);
     };
 
     useOutsideClick(

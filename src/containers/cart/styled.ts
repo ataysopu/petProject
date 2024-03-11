@@ -10,7 +10,6 @@ export const Title = styled.h4`
     line-height: 133.4%;
     padding: 0;
     margin-bottom: 24px;
-    margin-top: 125px;
     color: var(--grey-1000);
 
     ${mediaQueries('xl')`

@@ -37,6 +37,86 @@ export const Overlay = styled.div`
   `};
 `;
 
+// export const Tooltip = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     padding: 24px 24px 20px 24px;
+//     background: var(--grey-0);
+//     max-width: 416px;
+//     min-width: 416px;
+//     width: 100%;
+//     position: absolute;
+//     top: 44px;
+//     left: -21px;
+//     border-radius: 12px;
+//     transition: transform 0.35s ease;
+//     transition: opacity 0.35s ease;
+//     animation: fadein 0.35s ease;
+//     touch-action: manipulation;
+//     cursor: pointer;
+//     filter: drop-shadow(var(--shadow));
+//
+//     &:after {
+//         position: absolute;
+//         content: '';
+//         top: -30px;
+//         left: 40px;
+//         width: 0;
+//         height: 0;
+//         border-left: 30px solid transparent;
+//         border-right: 30px solid transparent;
+//         border-bottom: 30px solid var(--grey-0);
+//
+//         ${mediaQueries('lg')`
+//       display: none;
+//     `};
+//     }
+//
+//     @keyframes fadein {
+//         from {
+//             opacity: 0;
+//         }
+//         to {
+//             opacity: 1;
+//         }
+//     }
+//
+//     ${mediaQueries('lg')`
+//     bottom: 0;
+//     right: 0;
+//     left: 0;
+//     top: auto;
+//     max-width:100%;
+//     min-width: 0;
+//     animation: slideDown 0.35s ease;
+//     transition: transform 0.35s ease;
+//     border-radius: 12px 12px 0 0;
+//     touch-action: none
+//
+//     &:before {
+//       position: absolute;
+//       content: '';
+//       top: 8px;
+//       width: 40px;
+//       height: 4px;
+//       z-index: 20;
+//       background: red;
+//       left: 50%;
+//       transform: translateX(-50%);
+//       border-radius: 5px;
+//       background: var(--grey-200);
+//   `};
+//
+//     @keyframes slideDown {
+//         from {
+//             transform: translateY(100%);
+//         }
+//         to {
+//             transform: translateY(0);
+//         }
+//     }
+// `;
+
 export const Tooltip = styled.div`
     display: flex;
     flex-direction: column;
@@ -49,8 +129,7 @@ export const Tooltip = styled.div`
     top: 44px;
     left: -21px;
     border-radius: 12px;
-    transition: transform 0.35s ease;
-    transition: opacity 0.35s ease;
+    transition: transform 0.35s ease, opacity 0.35s ease;
     animation: fadein 0.35s ease;
     touch-action: manipulation;
     cursor: pointer;
@@ -68,8 +147,8 @@ export const Tooltip = styled.div`
         border-bottom: 30px solid var(--grey-0);
 
         ${mediaQueries('lg')`
-      display: none;
-    `};
+            display: none;
+        `}
     }
 
     @keyframes fadein {
@@ -82,39 +161,39 @@ export const Tooltip = styled.div`
     }
 
     ${mediaQueries('lg')`
-    bottom: 0;
-    right: 0;
-    left: 0;
-    top: auto;
-    max-width:100%;
-    min-width: 0;
-    animation: slideDown 0.35s ease;
-    transition: transform 0.35s ease;
-    border-radius: 12px 12px 0 0;
-    touch-action: none
+        bottom: 0;
+        right: 0;
+        left: 0;
+        top: auto;
+        max-width: 100%;
+        min-width: 0;
+        animation: slideDown 0.35s ease;
+        transition: transform 0.35s ease;
+        border-radius: 12px 12px 0 0;
+        touch-action: none;
 
-    &:before {
-      position: absolute;
-      content: '';
-      top: 8px;
-      width: 40px;
-      height: 4px;
-      z-index: 20;
-      background: red;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 5px;
-      background: var(--grey-200);
-  `};
-
-    @keyframes slideDown {
-        from {
-            transform: translateY(100%);
+        &:before {
+            position: absolute;
+            content: '';
+            top: 8px;
+            width: 40px;
+            height: 4px;
+            z-index: 20;
+            background: red;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+            background: var(--grey-200);
         }
-        to {
-            transform: translateY(0);
-        }
+    `} @keyframes slideDown {
+    from {
+        transform: translateY(100%);
     }
+
+    to {
+        transform: translateY(0);
+    }
+}
 `;
 
 export const Title = styled.div`

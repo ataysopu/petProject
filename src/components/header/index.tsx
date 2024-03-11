@@ -31,14 +31,11 @@ import { ReactComponent as MobileAppIcon } from '../../assets/icons/mobileApp.sv
 import { ReactComponent as ContactUsIcon } from '../../assets/icons/contactUs.svg';
 import { ReactComponent as CatalogIconOpen } from '../../assets/icons/burger.svg';
 import { ReactComponent as CatalogIconClose } from '../../assets/icons/x-close.svg';
-import { ReactComponent as FaveIcon } from '../../assets/icons/fave.svg';
 import { ReactComponent as MenuIcon } from '../../assets/icons/menu.svg';
-import { ReactComponent as EmptyCartIcon } from '../../assets/icons/cart.svg';
 
 
 import { Search } from '../../containers/search';
 import { Signin } from './singin';
-import { AppLogoLink } from '../../ui/styled';
 import { AppLogo } from '../../ui';
 import { WishlistCounterBtn } from '../../containers/wishlistCounter';
 import { CartCounterBtn } from '../../containers/cartCounter';
@@ -47,6 +44,7 @@ export const AppHeader = React.memo(() => {
   const [openMegaMenu, setOpenMegaMenu] = React.useState<boolean>(false);
   const [openDrower, setOpenDrower] = React.useState<boolean>(false);
   const [isOpenDrowModal, setDrowerModal] = React.useState<boolean>(false);
+
 
   const window = useWindowSize();
   const scroll = useWindowScroll();
@@ -118,7 +116,7 @@ export const AppHeader = React.memo(() => {
           <GoodsAuthContainer>
             <WishlistCounterBtn />
             <CartCounterBtn />
-            <Signin data={mockUser} />
+            <Signin />
           </GoodsAuthContainer>
         </HeaderBottom>
       </Container>

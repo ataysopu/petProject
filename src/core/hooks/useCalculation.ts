@@ -1,15 +1,16 @@
-import { DATA } from '../../containers/mocks/catalogItems';
+import { useSelector } from 'react-redux';
+import * as wishlistSliceSelectors from '../../store/selectors/wishlistSelectors';
 
 export const useCalculation = () => {
-  const data = DATA; //TODO get data from react-query
+  const data = useSelector(wishlistSliceSelectors.products);
+
   let total = 0;
   let discount = 0;
-  let countItems = 0;
+  let countItems = data.length || 0;
 
   data.forEach((i) => {
-    total += i.price.withDiscount * i.count;
-    discount += (i.price.withoutDiscount - i.price.withDiscount) * i.count;
-    countItems = data.length || 0;
+    total += i.price.withoutDiscount;
+    discount += i.price.withDiscount;
   });
 
   return {

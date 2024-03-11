@@ -20,7 +20,7 @@ export const Container = styled.div`
 export const Main = styled.div<Partial<any>>`
     max-width: 1232px;
     width: 100%;
-    margin: 0 auto;
+    margin: 136px auto 0;
     padding: ${(props) => (props.header ? '151px 16px 0 16px;' : '0 16px 0 16px')};
     ${(props) => mediaQueries('lg')(`padding: ${props.header ? '151px 16px 0 16px;' : '0 16px 0 16px'}`)};
 `;

@@ -4,7 +4,6 @@ import { mediaQueries } from '../../core/config/breakpoints';
 export const ProfileWrapper = styled.div`
     display: flex;
     gap: 16px;
-    padding-top: 130px;
 
     ${mediaQueries('lg')`
     flex-direction: column;

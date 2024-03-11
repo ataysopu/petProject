@@ -1,8 +1,9 @@
-import { zIndex } from '../styles/zindex';
+import { lightColors } from '../styles/colors';
+import { zIndex } from '../styles';
 import { GlobalStyle } from '../styles/global';
 
 type zIndexType = typeof zIndex
-type ColorsType = typeof GlobalStyle
+type ColorsType = typeof lightColors
 type Fonts = 'fira_sans' | 'pt_root_ui_regular' | 'pt_root_ui_medium' | 'pt_root_ui_bold'
 
 export interface ITheme {

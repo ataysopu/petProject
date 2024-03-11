@@ -106,9 +106,7 @@ export const Drower: React.FC<IDrowerProps> = React.memo(({ open, setOpen, setOp
                       ? handler
                       : () =>
                         navigate(href, {
-                          state: {
-                            data: state
-                          }
+                          state: { data: state }
                         })
                   }
                 >

@@ -2,15 +2,23 @@ import React from 'react';
 import {
   AddToCart,
   B,
-  Card, Cost, CurrentCost, Description,
+  Card,
+  Cost,
+  CurrentCost,
+  Description,
   FaveBtn,
   Favorites,
-  Info, InstalmentPay, Name, NewCost, Price,
+  Info,
+  InstalmentPay,
+  Name,
+  NewCost,
+  Price,
   SSliderContainer,
   Toast,
   ToastContainer,
   ToastsContainer,
-  Type, Variant
+  Type,
+  Variant
 } from './styled';
 
 import { SliderCard } from '../../sliders';
@@ -26,6 +34,10 @@ import { addFavorites, deleteFromFavorites } from '../../../store/reducers/favor
 import * as favoriteSliceSelectors from 'store/selectors/favoriteSelectors';
 import * as wishlistSliceSelectors from 'store/selectors/wishlistSelectors';
 import { addWishlist, deleteFromWishlist } from '../../../store/reducers/wishlistSlice';
+import { faveHelper } from '../../../core/helpers/faveHelpers';
+import { loginHelper } from '../../../core/helpers/loginHelpers';
+import * as userSelector from '../../../store/selectors/userSelectors';
+import { loginText } from '../../../core';
 
 
 interface IDesktopCard {
@@ -34,21 +46,36 @@ interface IDesktopCard {
 }
 
 export const DesktopCard: React.FC<IDesktopCard> = ({ data, row }) => {
+  const [userId, serUserId] = React.useState<any>(null);
+
   const [hover, setHover] = React.useState<boolean>(false);
   const goods = useSelector(favoriteSliceSelectors.goods);
   const products = useSelector(wishlistSliceSelectors.products);
+  const user = useSelector(userSelector.user);
+
   const dispatch = useDispatch();
   const isExists = goods.find(g => g.id === data.id)?.id;
   const isWishlist = products.find(p => p.id === data.id)?.id;
+  const isLogin = user.isLogin;
 
+  React.useEffect(() => {
+    loginHelper(userId, dispatch);
+  }, [userId]);
 
   const handleClickFaveBtn = () => {
-    if (isExists) {
-      dispatch(deleteFromFavorites(data));
+    if (!isLogin) {
+      serUserId(window.prompt(loginText));
     } else {
-      dispatch(addFavorites(data));
+
+      faveHelper(data);
+      if (isExists) {
+        dispatch(deleteFromFavorites(data));
+      } else {
+        dispatch(addFavorites(data));
+      }
     }
   };
+
 
   const handleClickWishBtn = () => {
     if (isWishlist) {

@@ -15,7 +15,8 @@ export const InputWrap = styled.div`
       height: 48px;
       padding: 0;
       padding-left: 12px;
-      margin-right: 21px;
+      margin-right: 21px
+      
 
       & svg {
           display: none;

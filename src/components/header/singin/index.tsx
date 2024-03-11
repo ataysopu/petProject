@@ -1,11 +1,10 @@
-import { TUser } from '../../../core/types/user';
 import React from 'react';
 import { useOutsideClick } from '../../../core/hooks/useOutsideClick';
 import { URLS } from '../../../routes/urls';
 import { Tab } from '../../../containers/profile/controll';
 import { useNavigate } from 'react-router-dom';
 import { APP_LINKS } from '../../../routes/links';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeActiveTab } from '../../../store/reducers/appSlice';
 
 import {
@@ -26,15 +25,23 @@ import { ReactComponent as WishlistIcon } from 'assets/icons/drower/wishlist.svg
 import { ReactComponent as LogoutIcon } from 'assets/icons/drower/logout.svg';
 import { ReactComponent as AccountIcon } from 'assets/icons/drower/account.svg';
 import { ReactComponent as PinIcon } from 'assets/icons/drower/pin.svg';
+import * as userSelector from '../../../store/selectors/userSelectors';
+import { setLogin } from '../../../store/reducers/userSlice';
+import { resetFavorites } from '../../../store/reducers/favoriteSlice';
+import { loginHelper } from '../../../core/helpers/loginHelpers';
+import { loginText } from '../../../core';
 
-interface ISigninProps {
-  data: TUser;
-}
 
-export const Signin: React.FC<ISigninProps> = React.memo(({ data }) => {
+export const Signin: React.FC = React.memo(() => {
+  const [userId, serUserId] = React.useState<any>(null);
+
   const [open, setOpen] = React.useState<boolean>(false);
   const ref = React.useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
+
+  const user = useSelector(userSelector.user);
+
   // @ts-ignore
   const dispatch = useDispatch();
 
@@ -68,12 +75,11 @@ export const Signin: React.FC<ISigninProps> = React.memo(({ data }) => {
       label: 'Выйти',
       icon: <LogoutIcon />,
       href: URLS.Main,
-      handler: () => console.log('work')
+      handler: () => dispatch(setLogin(false))
     }
   ];
 
   React.useEffect(() => {
-    // Используйте navigate вместо history
     const unlisten = () => {
       setOpen(false);
     };
@@ -81,56 +87,64 @@ export const Signin: React.FC<ISigninProps> = React.memo(({ data }) => {
     return unlisten;
   }, [navigate]);
 
+  React.useEffect(() => {
+    if (!user.isLogin) {
+      dispatch(resetFavorites());
+      serUserId(null);
+    }
+  }, [user.isLogin]);
+
+  React.useEffect(() => {
+    loginHelper(userId, dispatch);
+  }, [userId]);
+
+
   useOutsideClick(ref, () => setOpen(false), true);
 
-  console.log(DATA);
+  const handleClick = () => {
+    serUserId(window.prompt(loginText));
+  };
+
 
   return (
     <SigninWrapper>
-      {data.isAuth ? (
+      {user.isLogin ? (
         <Account onClick={() => setOpen(!open)}>
           <AccountIcon />
           Профиль
         </Account>
       ) : (
         <NotAccount>
-          <SigninBtn onClick={() => navigate('/auth')}>
-            <SigninIcon />
+          <SigninBtn onClick={handleClick}>
             Войти
+            <SigninIcon />
           </SigninBtn>
         </NotAccount>
       )}
-      <ExpandLinksListWrapper open={open} ref={ref}>
-        <Account
-          onClick={() =>
-            navigate(URLS.Profile, {
-              state: {
-                data: Tab.PERSONAL
-              }
-            })
-          }
-        >
-          <AccountIcon />
-          Профиль
-        </Account>
-        <LinksList>
-          {DATA.map(({ label, state, handler, href, icon }) => (
-            <ListItem
-              key={label}
-              onClick={
-                handler
-                  ? handler
-                  : () => {
-                    navigate(`/profile`);
-                    dispatch(changeActiveTab(state));
-                  }
-              }
-            >
-              {icon} <ListItemTypography variant="bodyA">{label}</ListItemTypography>
-            </ListItem>
-          ))}
-        </LinksList>
-      </ExpandLinksListWrapper>
+      {user.isLogin &&
+        <ExpandLinksListWrapper open={open} ref={ref}>
+          <Account onClick={() => dispatch(changeActiveTab(Tab.PERSONAL))}>
+            <AccountIcon />
+            Профиль
+          </Account>
+          <LinksList>
+            {DATA.map(({ label, state, handler, href, icon }) => (
+              <ListItem
+                key={label}
+                onClick={
+                  handler
+                    ? handler
+                    : () => {
+                      navigate(`/profile`);
+                      dispatch(changeActiveTab(state));
+                    }
+                }
+              >
+                {icon} <ListItemTypography variant="bodyA">{label}</ListItemTypography>
+              </ListItem>
+            ))}
+          </LinksList>
+        </ExpandLinksListWrapper>}
     </SigninWrapper>
   );
 });
