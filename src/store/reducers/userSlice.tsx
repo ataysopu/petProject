@@ -2,26 +2,35 @@ import { createSlice } from '@reduxjs/toolkit';
 
 
 export interface IUser {
-  id: number
-  name: string
-  birthDate: string
-  phoneNumber: string
-  gender: string
-  email: string
-  photo: string,
-  address: string
-  faves: []
+  id: number;
+  name: string;
+  birthDate: string;
+  phoneNumber: string;
+  gender: string;
+  email: string;
+  photo: string;
+  address: string;
 }
 
-interface IUserSlice {
+export interface IUserSlice {
   isLogin: boolean;
-  data: IUser | null;
+  data: IUser;
 }
 
 const initialState: IUserSlice = {
   isLogin: false,
-  data: null
+  data: {
+    id: 0,
+    name: '',
+    birthDate: '',
+    phoneNumber: '',
+    gender: '',
+    email: '',
+    photo: '',
+    address: ''
+  }
 };
+
 export const userSlices = createSlice({
   name: 'user',
   initialState,

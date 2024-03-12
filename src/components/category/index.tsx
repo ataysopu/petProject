@@ -14,11 +14,11 @@ export const Category: React.FC = () => {
         <Image src={notebook} />
       </Item>
       <Item>
-        <Label variant="subtitleB">Телефоны</Label>
+        <Label variant="subtitleB">Аксессуары</Label>
         <Image src={headphone} />
       </Item>
       <Item>
-        <Label variant="subtitleB">Аксессуары</Label>
+        <Label variant="subtitleB">Телефоны</Label>
         <Image src={phone} />
       </Item>
       <EmptyItem>

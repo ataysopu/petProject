@@ -82,7 +82,6 @@ export const Drower: React.FC<IDrowerProps> = React.memo(({ open, setOpen, setOp
                 })
               }
             >
-              {/*<AccountIcon />*/}
               Профиль
             </Account>
           ) : (

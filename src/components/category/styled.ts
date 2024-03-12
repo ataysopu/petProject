@@ -3,16 +3,12 @@ import { mediaQueries } from '../../core/config/breakpoints';
 import { Typography } from '../typography';
 
 export const Categories = styled.div`
-    width: 296px;
+    width: 100%;
     min-width: 296px;
     display: flex;
     flex-wrap: wrap;
     gap: 50px 16px;
-
-    @media (max-width: 1240px) {
-        width: 100%;
-        margin-top: 80px;
-    }
+    margin-top: 80px;
 
     ${mediaQueries('lg')`
     display: none;
@@ -28,6 +24,7 @@ export const Item = styled.div`
     cursor: pointer;
     transition: background var(--base-delay) ease;
     transition: transform var(--base-delay) ease;
+    flex: 1;
 
     &:hover {
         color: var(--primary-white);
@@ -35,10 +32,6 @@ export const Item = styled.div`
         background-color: var(--primary-main);
         transition: background-color var(--base-delay) ease;
         transition: transform var(--base-delay) ease;
-    }
-
-    @media (max-width: 1240px) {
-        flex: 1;
     }
 `;
 

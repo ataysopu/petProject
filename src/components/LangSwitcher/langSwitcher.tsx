@@ -15,7 +15,7 @@ interface ILangSwitcher {
 const CustomOption = (props: any) => {
   return (
     <ListItem {...props}>
-      <img src={props.data.icon} /> <Typography variant="bodyA">{props.data.label}</Typography>
+      <img src={props.data.icon} alt={'флаг'} /> <Typography variant="bodyA">{props.data.label}</Typography>
     </ListItem>
   );
 };

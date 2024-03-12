@@ -14,21 +14,13 @@ export const Container = styled.div`
 export const Content = styled.main`
     display: flex;
     flex-direction: column;
-
-    ${mediaQueries('lg')`
-    flex-direction: column;
-  `}
 `;
 
 export const SliderSection = styled.div`
     gap: 18px;
     display: flex;
-    align-items: flex-end;
-
-    @media (max-width: 1240px) {
-        flex-direction: column;
-        align-items: stretch;
-    }
+    align-items: stretch;
+    flex-direction: column;
 `;
 
 export const SliderContainer = styled.div`

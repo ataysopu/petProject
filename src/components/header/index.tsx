@@ -39,6 +39,10 @@ import { Signin } from './singin';
 import { AppLogo } from '../../ui';
 import { WishlistCounterBtn } from '../../containers/wishlistCounter';
 import { CartCounterBtn } from '../../containers/cartCounter';
+import { useSelector } from 'react-redux';
+import * as userSelector from '../../store/selectors/userSelectors';
+import { IUser } from '../../store/reducers/userSlice';
+import { TUser } from '../../core/types/user';
 
 export const AppHeader = React.memo(() => {
   const [openMegaMenu, setOpenMegaMenu] = React.useState<boolean>(false);
@@ -72,9 +76,28 @@ export const AppHeader = React.memo(() => {
     return setDrowerModal(true);
   };
 
+  const user = useSelector(userSelector.user);
+
+  function convertIUserToTUser(user: IUser): TUser {
+    return {
+      name: user.name,
+      birthday: user.birthDate,
+      phone: user.phoneNumber,
+      gender: user.gender,
+      email: user.email,
+      photo: user.photo,
+      isAuth: false,
+      adress: user.address,
+      identifiedType: 'IDENTIFIED'
+    };
+  }
+
+  const convertedUser = convertIUserToTUser(user.data);
+
+
   return (
     <Header>
-      <Drower open={openDrower} setOpen={setOpenDrower} data={mockUser} setOpenLangModal={handleClose} />
+      <Drower open={openDrower} setOpen={setOpenDrower} data={convertedUser} setOpenLangModal={handleClose} />
       <DrowerLangModal isOpen={isOpenDrowModal} onClose={() => setDrowerModal(false)} />
       <Container>
         <Modal isOpen={openMegaMenu} onClose={setOpenMegaMenu} bg="#ffffff" {...config()}>

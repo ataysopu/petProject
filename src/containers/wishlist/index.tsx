@@ -39,21 +39,20 @@ export const Wishlist: React.FC<any> = () => {
     }
   }, [favedGoods]);
 
-  const sortByType = (flag: string) => {
-    const data = goods.filter((a) => a[flag]);
-
-    // console.log('data: ', [...data, ...goods]);
-    // setGoods(items => ({ ...items, ...data }));
-  };
+  // const sortByType = (flag: string) => {
+  //   const data = goods.filter((a) => a[flag]);
+  //   // console.log('data: ', [...data, ...goods]);
+  //   // setGoods(items => ({ ...items, ...data }));
+  // };
 
   return (
     <WishlistWrapper>
       <Title>Избранное</Title>
       <SortContainer>
         <GoodsCount>Показано {favedGoods.length} товаров</GoodsCount>
-        <FilterBy>
-          <Select options={OPTIONS} onChange={(item: any) => sortByType(item)} placeholder="Сортировать" />
-        </FilterBy>
+        {/*<FilterBy>*/}
+        {/*  <Select options={OPTIONS} onChange={(item: any) => sortByType(item)} placeholder="Сортировать" />*/}
+        {/*</FilterBy>*/}
       </SortContainer>
       <GoodsContainer>
         <Grid>
